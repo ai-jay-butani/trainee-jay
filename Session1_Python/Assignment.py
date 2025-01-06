@@ -25,7 +25,7 @@ def options(dict1 = {}):
 			add_country()
 			
 			country_list = dict1.keys()
-			print(country_list)
+			print(list(country_list))
 			country_choice = input("Which country you want to add the state please Enter: ")
 			
 			def add_state():
@@ -48,10 +48,10 @@ def options(dict1 = {}):
 			if permission == "Y":
 				try:
 					country_list = dict1.keys()
-					print(country_list)
+					print(list(country_list))
 					country_choice = input("Which country you want to add the city please Enter: ")
 					state_list = dict1[country_choice].keys()
-					print(state_list)
+					print(list(state_list))
 					state_choice = input("Which state you want to add city please Enter: ")
 					
 					def add_city():
@@ -84,7 +84,7 @@ def options(dict1 = {}):
 			
 			if permission_update == "country":
 				country_list = dict1.keys()
-				print(country_list)
+				print(list(country_list))
 				country_choice = input("Which country you want to Update please Enter: ")
 				
 				def update_country():
@@ -100,10 +100,10 @@ def options(dict1 = {}):
 			elif permission_update == "state":
 				try:
 					country_list = dict1.keys()
-					print(country_list)
+					print(list(country_list))
 					country_choice = input("Which country you want to Update please Enter: ")
 					state_list = dict1[country_choice].keys()
-					print(state_list)
+					print(list(state_list))
 					state_choice = input("Which state you want to Update please Enter: ")
 					
 					def update_state():
@@ -123,13 +123,13 @@ def options(dict1 = {}):
 				try:
 				
 					country_list = dict1.keys()
-					print(country_list)
+					print(list(country_list))
 					country_choice = input("Which country you want to Update please Enter: ")
 					state_list = dict1[country_choice].keys()
-					print(state_list)
+					print(list(state_list))
 					state_choice = input("Which state you want to Update please Enter: ")	
 					city_list = dict1[country_choice][state_choice]
-					print(city_list)
+					print(list(city_list))
 					city_choice = input("Which city you want to Update please Enter: ")
 					
 					def update_city():
@@ -160,7 +160,7 @@ def options(dict1 = {}):
 			
 			if permission_delete == "country":
 				country_list = dict1.keys()
-				print(country_list)
+				print(list(country_list))
 				country_choice = input("Which country you want to Delete please Enter: ")
 				
 				def delete_country():
@@ -174,10 +174,10 @@ def options(dict1 = {}):
 			elif permission_delete == "state":
 				try:
 					country_list = dict1.keys()
-					print(country_list)
+					print(list(country_list))
 					country_choice = input("Which country you want to Delete please Enter: ")
 					state_list = dict1[country_choice].keys()
-					print(state_list)
+					print(list(state_list))
 					state_choice = input("Which state you want to Delete please Enter: ")
 					
 					def delete_state():
@@ -195,13 +195,13 @@ def options(dict1 = {}):
 				try:
 	
 					country_list = dict1.keys()
-					print(country_list)
+					print(list(country_list))
 					country_choice = input("Which country you want to Delete please Enter: ")
 					state_list = dict1[country_choice].keys()
-					print(state_list)
+					print(list(state_list))
 					state_choice = input("Which state you want to Delete please Enter: ")	
 					city_list = dict1[country_choice][state_choice]
-					print(city_list)
+					print(list(city_list))
 					city_choice = input("Which city you want to Delete please Enter: ")
 					
 					def delete_city():
