@@ -11,26 +11,32 @@ def options(dict1 = {}):
 	
 	if input_choice == 1:
 	
-		def add():
-		
+		def add(dict1):
+			country = []
+			state = []
+			city = []
 			
-			def add_country():
+			def add_country(dict1):
 				input_country = input("Enter Country: ")
 				if input_country.isalpha():
-					dict1[input_country] = {}
+					country.append(input_country)
 					res = input("Do You want to enter another Country Y/N: ")
 					if res == "N" or res == 'n':
-						pass
+						dict1 = {k:{} for k in country}
+						return dict1
 					else:
-						add_country()
+						dict1 = add_country(dict1)
+						return dict1
 				else:
 					print("Country name is not valid")
-					add_country()
+					dict1 = add_country(dict1)
+					return dict1
 					
-			add_country()
+					
+			dict1 = add_country(dict1)
 			
-			def add_state():
-			
+			def add_state(dict1):
+				
 				country_list = dict1.keys()
 				print(list(country_list))
 				country_choice = input("Which country you want to add the state please Enter: ")
@@ -38,26 +44,30 @@ def options(dict1 = {}):
 				if country_choice in country_list:
 					input_state = input("Enter State: ")
 					if input_state.isalpha():
-						dict1[country_choice][input_state] = []
+						state.append(input_state)
 						res = input("Do You want to enter another State Y/N: ")
 						if res == "N" or res == 'n':
-							pass
+							dict1 = dict1 | {country_choice:{k:[] for k in state}}
+							return dict1
 						else:
-							add_state()
+							return add_state(dict1)
 					else:
 						print("State name is not valid")
-						add_state()
+						return add_state(dict1)
 				else:
 					print("You are selected country is not in list")
-					add_state()
+					return add_state(dict1)
 					
-			add_state()
+				
+					
+			dict1 = add_state(dict1)
+			print(dict1)
 			
 			permission = input("Do you enter the city Y/N: ")
 			
 			if permission == "Y" or permission == 'y':
 				
-				def add_city():
+				def add_city(dict1):
 					try:
 						country_list = dict1.keys()
 						print(list(country_list))
@@ -68,31 +78,35 @@ def options(dict1 = {}):
 						if state_choice in state_list:
 							input_city = input("Enter City: ")
 							if input_city.isalpha():
-								dict1[country_choice][state_choice].append(input_city)
+								city.append(input_city)
 								res = input("Do You want to enter another City Y/N: ")
 								if res == "N" or res == 'n':
-									pass
+									dict1 = dict1 | {country_choice:dict1[country_choice] | 			{state_choice:[v for v in city]}}
+									return dict1
 								else:
-									add_city()
+									return add_city(dict1)
 							else:
 								print("city name is not valid")
-								add_city()
+								return add_city(dict1)
 						
 						else:
 							print("You are selected state is not in list")
-							add_city()
+							return add_city(dict1)
 					except:
 						print("country is not found in list.")
-						add_city()
+						return add_city(dict1)
 								
-				add_city()	
-		add()
+				dict1 = add_city(dict1)	
+				
+			return dict1
+			
+		dict1 = add(dict1)
 	
 		options(dict1)	
 				
 	elif input_choice == 2:
 		
-		def update():
+		def update(dict1):
 		
 			permission_update = input("which option you want to change country, state and city: ")
 			
@@ -160,15 +174,16 @@ def options(dict1 = {}):
 					
 			else:
 				print("You are not selected valid permission")
-				update()	
-		
-		update()
+				update(dict1)	
+			
+			return dict1
+		dict1 = update(dict1)
 		
 		options(dict1)
 		
 	elif input_choice == 3:
 		
-		def delete():
+		def delete(dict1):
 		
 			permission_delete = input("which option you want to delete country, state and city: ")
 			
@@ -234,8 +249,11 @@ def options(dict1 = {}):
 					
 			else:
 				print("You are not selected valid permission")	
-				delete()
-		delete()
+				delete(dict1)
+				
+			return dict1
+			
+		dict1 = delete(dict1)
 		
 		options(dict1)
 			
