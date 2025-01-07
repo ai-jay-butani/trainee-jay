@@ -65,6 +65,7 @@ def user_input():
 	num2 = eval(input("Enter Second Number: "))
 	return num1,num2
 
+#main
 import time
 start_time = time.time()
 user_input()
