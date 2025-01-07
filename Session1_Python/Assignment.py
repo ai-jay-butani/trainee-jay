@@ -16,6 +16,7 @@ def options(dict1 = {}):
 			
 			def add_country():
 				input_country = input("Enter Country: ")
+				input_country = input_country.lower()
 				if input_country.isalpha():
 					dict1[input_country] = {}
 					res = input("Do You want to enter another Country Y/N: ")
@@ -34,9 +35,10 @@ def options(dict1 = {}):
 				country_list = dict1.keys()
 				print(list(country_list))
 				country_choice = input("Which country you want to add the state please Enter: ")
-				
+				country_choice = country_choice.lower()
 				if country_choice in country_list:
 					input_state = input("Enter State: ")
+					input_state = input_state.lower()
 					if input_state.isalpha():
 						dict1[country_choice][input_state] = []
 						res = input("Do You want to enter another State Y/N: ")
@@ -62,11 +64,14 @@ def options(dict1 = {}):
 						country_list = dict1.keys()
 						print(list(country_list))
 						country_choice = input("Which country you want to add the city please Enter: ")
+						country_choice = country_choice.lower()
 						state_list = dict1[country_choice].keys()
 						print(list(state_list))
 						state_choice = input("Which state you want to add city please Enter: ")
+						state_choice = state_choice.lower()
 						if state_choice in state_list:
 							input_city = input("Enter City: ")
+							input_city = input_city.lower()
 							if input_city.isalpha():
 								dict1[country_choice][state_choice].append(input_city)
 								res = input("Do You want to enter another City Y/N: ")
@@ -101,9 +106,11 @@ def options(dict1 = {}):
 					country_list = dict1.keys()
 					print(list(country_list))
 					country_choice = input("Which country you want to Update please Enter: ")
+					country_choice = country_choice.lower()
 					if country_choice in country_list:
 						dict1.pop(country_choice)
 						update_country_name = input("Please Enter country new name: ")
+						update_country_name  = update_country_name.lower()
 						dict1[update_country_name] = {}
 					else:
 						print("You are selected country is not in list")
@@ -117,12 +124,15 @@ def options(dict1 = {}):
 						country_list = dict1.keys()
 						print(list(country_list))
 						country_choice = input("Which country you want to Update please Enter: ")
+						country_choice = country_choice.lower()
 						state_list = dict1[country_choice].keys()
 						print(list(state_list))
 						state_choice = input("Which state you want to Update please Enter: ")
+						state_choice = state_choice.lower()
 						if state_choice in state_list:
 							dict1[country_choice].pop(state_choice)
 							update_state_name = input("Please Enter state new name: ")
+							update_state_name  = update_state_name.lower()
 							dict1[country_choice][update_state_name] = []
 						else:
 							print("You are selected state is not in list")
@@ -139,15 +149,19 @@ def options(dict1 = {}):
 						country_list = dict1.keys()
 						print(list(country_list))
 						country_choice = input("Which country you want to Update please Enter: ")
+						country_choice = country_choice.lower()
 						state_list = dict1[country_choice].keys()
 						print(list(state_list))
-						state_choice = input("Which state you want to Update please Enter: ")	
+						state_choice = input("Which state you want to Update please Enter: ")
+						state_choice = state_choice.lower()	
 						city_list = dict1[country_choice][state_choice]
 						print(list(city_list))
 						city_choice = input("Which city you want to Update please Enter: ")
+						city_choice = city_choice.lower()
 						if city_choice in city_list:
 							dict1[country_choice][state_choice].remove(city_choice)
 							update_city_name = input("Please Enter new city: ")
+							update_city_name  = update_city_name.lower()
 							dict1[country_choice][state_choice].append(update_city_name)
 						else:
 							print("You are selected city is not in list")
@@ -177,6 +191,7 @@ def options(dict1 = {}):
 					country_list = dict1.keys()
 					print(list(country_list))
 					country_choice = input("Which country you want to Delete please Enter: ")
+					country_choice = country_choice.lower()
 					if country_choice in country_list:
 						del dict1[country_choice]
 					else:
@@ -191,9 +206,11 @@ def options(dict1 = {}):
 						country_list = dict1.keys()
 						print(list(country_list))
 						country_choice = input("Which country you want to Delete please Enter: ")
+						country_choice = country_choice.lower()
 						state_list = dict1[country_choice].keys()
 						print(list(state_list))
 						state_choice = input("Which state you want to Delete please Enter: ")
+						state_choice = state_choice.lower()
 						if state_choice in state_list:
 							del dict1[country_choice][state_choice]
 						else:
@@ -214,12 +231,15 @@ def options(dict1 = {}):
 						country_list = dict1.keys()
 						print(list(country_list))
 						country_choice = input("Which country you want to Delete please Enter: ")
+						country_choice = country_choice.lower()
 						state_list = dict1[country_choice].keys()
 						print(list(state_list))
-						state_choice = input("Which state you want to Delete please Enter: ")	
+						state_choice = input("Which state you want to Delete please Enter: ")
+						state_choice = state_choice.lower()	
 						city_list = dict1[country_choice][state_choice]
 						print(list(city_list))
 						city_choice = input("Which city you want to Delete please Enter: ")
+						city_choice = city_choice.lower()
 						if city_choice in city_list:
 							city_list.remove(city_choice)
 						else:
@@ -257,5 +277,12 @@ def options(dict1 = {}):
 	
 	
 ##main	
-	
+import time
+
+start_time = time.time()
+print(start_time)	
 options()
+end_time = time.time()
+print(end_time)
+
+print("Time taken by function: ",end_time-start_time)
