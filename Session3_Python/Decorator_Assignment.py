@@ -1,9 +1,9 @@
 	
-def Decorator(user_input):
+def Decorator(func):
 	
 	def Calculator():
 		
-		a,b = user_input()
+		a,b = func()
 		
 		print("Choose + operator for Addition.")
 		print("Choose - operator for Subtraction.")
@@ -71,4 +71,4 @@ start_time = time.time()
 user_input()
 end_time = time.time()
 
-print("Execution time is: ",end_time-start_time)
+print("Execution time is: ",end_time-start_time," Seconds.")
