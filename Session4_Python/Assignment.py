@@ -5,6 +5,7 @@ def FindFile(user_input,sub_dir,path=["/"],list1=[]):
 	list_dir = list(sub_dir.keys())
 	list_dir.append("none")
 	list1.append(sub_dir)
+	ans = ""
 	
 	if user_input in list_dir:
 		path.append(user_input)
@@ -30,10 +31,11 @@ def FindFile(user_input,sub_dir,path=["/"],list1=[]):
 				
 			try:
 				if ans:
-					print(f"File {user_input} found at {ans}")
-					return
+					break
+				
 			except:
-				pass				
+				pass	
+	return ans			
 
 #input
 
@@ -50,4 +52,8 @@ directory = {"documents":
 	     
 user_input = input("Please Enter filename with extension: ")
 
-FindFile(user_input,directory)	
+ans = FindFile(user_input,directory)
+if ans != "":
+	print(f"File {user_input} found at {ans}")
+else:
+	print("File not found in Data.")
