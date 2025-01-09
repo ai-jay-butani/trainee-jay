@@ -1,5 +1,4 @@
 
-
 def FindFile(user_input,sub_dir,path=["/"],list1=[]):
 	
 	list_dir = list(sub_dir.keys())
@@ -20,7 +19,7 @@ def FindFile(user_input,sub_dir,path=["/"],list1=[]):
 					
 				elif list1[-1][i] == None:	
 					pass
-
+					
 				else:
 					
 					path.append(i+'/')

@@ -1,5 +1,4 @@
 def decorator(func):
-	
 	def wrapper():
 	
 		out = func()
