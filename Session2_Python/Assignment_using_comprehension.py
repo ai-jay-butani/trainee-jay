@@ -27,7 +27,7 @@ def options(dict1 = {}):
 					country.append(input_country)
 					res = input("Do You want to enter another Country Y/N: ")
 					if res == "N" or res == 'n':
-						dict1 = {k:{} for k in country}
+						dict1 = dict1 | {k:{} for k in country}
 						return dict1
 					else:
 						dict1 = add_country(dict1)
