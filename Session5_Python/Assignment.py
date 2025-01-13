@@ -69,11 +69,11 @@ class CurrentAccount(BankAccount):
 	def withdrawal(self, withdraw_amount):
 		self.withdraw_amount = withdraw_amount
 		self.add_overdraft()
-		if self.withdraw_amount < self.overdraft_limit:
-			print("The withdrwal amount is smaller than overdraft limit.")
-		else:
+		if 0<= self.withdraw_amount <= self.balance + self.overdraft_limit:
+			print(f"Overdraft loan is {self.withdraw_amount - self.balance}")
 			self.balance = self.balance - self.withdraw_amount
 			print("Withdraw Succesfully.")
+			
 
 		return self.balance
 
