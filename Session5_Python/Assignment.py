@@ -30,8 +30,11 @@ class BankAccount:
 	def withdrawal(self,withdraw_amount):
 	
 		self.withdraw_amount = withdraw_amount
-		self.balance = self.balance - self.withdraw_amount
-		print("Withdraw Succesfully....")
+		if self.balance < self.withdraw_amount:
+			print("Your withdrwal amount is grater than balance.")
+		else:
+			self.balance = self.balance - self.withdraw_amount
+			print("Withdraw Succesfully....")
 		return self.balance
 		
 	def display_balance(self):
@@ -116,7 +119,7 @@ while True:
 					sav_obj.add_interest()
 				
 			else:
-				print("Your saving account is not exist.")
+				print("Your saving account is not created firt you create your account.")
 		
 		elif type_account == "current":
 			if account_number in list(data["current"].keys()):
