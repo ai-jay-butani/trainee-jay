@@ -1,0 +1,29 @@
+employee table:
+
+create table employee (employee_id serial primary key, name varchar(100), department varchar(50));
+
+insert into employee(name, department) values('Alice', 'DEV'),('Bob', 'HR'),('Charlie', 'Business');
+
+select * from employee;
+
+Projects table:
+
+create table projects (project_id serial primary key, project_name varchar(100), employee_id int, foreign key (employee_id) references employee(employee_id));
+
+insert into projects(project_name, employee_id) values('Website Redesign', 1),('Ad Campaign', 2);
+
+select * from projects;
+
+Join query:
+
+Inner join Query:
+
+select employee.name, projects.project_name from projects inner join employee on projects.employee_id=employee.employee_id;
+
+Left Join Query:
+
+select employee.name, projects.project_name from projects left join employee on projects.employee_id=employee.employee_id;
+
+Right Join Query:
+
+select employee.name, projects.project_name from projects right join employee on projects.employee_id=employee.employee_id;
