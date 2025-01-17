@@ -1,15 +1,11 @@
 def decorator(func):
 	def wrapper():
-	
 		out = func()
-		
-		return out
-		
+		return out	
 	return wrapper
 	
 def decorator_pattern(func):
-	def wrapper(*args):
-		
+	def wrapper(*args):	
 		func(*args)
 		print(args[0])
 		func(*args)

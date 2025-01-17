@@ -1,7 +1,6 @@
 def Decorator(func):
 	
 	def Calculator():
-		
 		print("Choose + operator for Addition.")
 		print("Choose - operator for Subtraction.")
 		print("Choose * operator for Multiplication.")
@@ -9,73 +8,63 @@ def Decorator(func):
 		print("Choose ^ operator for Power.")
 		print("Choose % operator for Modulo.")
 		print("Choose x for Exits.")
-		
 		choice = input("Enter your choice: ")
-		
 		if choice == 'x':
 			return
-		
-		a,b = func()
-		
 		match choice:
-			
 			case '+':
 				try:
+					a,b = func()
 					print(f"Addition of {a} and {b} is: {a+b}")
 					Calculator()
 				except Exception as e:
-					print(f"{e} Exception occur.")
-					
+					print(f"{e} Exception occur.")		
 			case '-':
 				try:
+					a,b = func()
 					print(f"Subtraction of {a} and {b} is: {a-b}")
 					Calculator()
 				except Exception as e:
-					print(f"{e} Exception occur.")
-					
+					print(f"{e} Exception occur.")		
 			case '*':
 				try:
+					a,b = func()
 					print(f"Multiplication of {a} and {b} is: {a*b}")
 					Calculator()
 				except Exception as e:
-					print(f"{e} Exception occur.")
-					
+					print(f"{e} Exception occur.")		
 			case '/':
 				try:
+					a,b = func()
 					print(f"Divison of {a} and {b} is: {a/b}")
 					Calculator()
 				except Exception as e:
 					print(f"{e} Exception occur.")
-			
 			case '^':
 				try:
+					a,b = func()
 					print(f"Power of {a} and {b} is: {a**b}")
 					Calculator()
 				except Exception as e:
-					print(f"{e} Exception occur.")
-					
+					print(f"{e} Exception occur.")	
 			case '%':
 				try:
+					a,b = func()
 					print(f"{a} modulo {b} is: {a%b}")
 					Calculator()
 				except Exception as e:
-					print(f"{e} Exception occur.")
-					
-			case '_':
+					print(f"{e} Exception occur.")	
+			case __:
 				print("Not a Valid Option.")
 				Calculator()
-
-	
-	
 	return Calculator
-	
 
 @Decorator	
 def user_input():
 	num1 = eval(input("Enter First Number: "))
 	num2 = eval(input("Enter Second Number: "))
 	return num1,num2
-
+	
 #main
 import time
 start_time = time.time()
