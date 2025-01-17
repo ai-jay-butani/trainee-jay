@@ -67,7 +67,7 @@ data1 = cursor.fetchall()
 print(data1)
 
 cursor.execute("""
-		select products.price*orders.quantity, orders.id from products
+		select orders.id,products.price*orders.quantity from products
 		inner join orders on  orders.id = products.id
 		inner join customers on customers.id = products.id
 		where products.price > 50""")
