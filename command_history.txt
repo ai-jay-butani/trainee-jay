@@ -1,0 +1,65 @@
+CREATE TABLE (id SERIAL PRIMARY KEY, name VARCHAR(100), age INT, grade VARCHAR(10));
+CREATE TABLE student (id SERIAL PRIMARY KEY, name VARCHAR(100), age INT, grade VARCHAR(10));
+INSERT INTO student(name,age,grade) VALUES("jay",20,A);
+INSERT INTO student(name,age,grade) VALUES('jay',20,A);
+INSERT INTO student(name,age,grade) VALUES('jay',20,'A');
+select * from student;
+INSERT INTO student(name,age,grade) VALUES('jay',20,'A');
+select * from student;
+INSERT INTO student(name,age,grade) VALUES('Utsav',20,'B');
+select * from student;
+alter table student alter column grade type varchar(4);
+alter table student add subject varchar(20);
+select * from student;
+update student set name = "prince" where id = 2;
+update student set name = 'prince' where id = 2;
+select * from student;
+alter table student drop column subject;
+select * from student;
+INSERT INTO student(name,age,grade) VALUES(('vatsal',20,'B'),('abc',21,'C'));
+INSERT INTO student(name,age,grade) VALUES('vatsal',20,'B'),('abc',21,'C');
+select * from student;
+q
+\q
+create table employee (id serial primary key, name varchar(100), department varchar(50));
+insert into employee values('Alice', 'DEV'),('Bob', 'HR'),('Charlie', 'Business');
+insert into employee(name, department) values('Alice', 'DEV'),('Bob', 'HR'),('Charlie', 'Business');
+select * from employee
+select * from employee;
+select * from employee;
+drop employee
+drop employee;
+drop employee;
+drop table employee;
+select * from employee;
+create table employee (employee_id serial primary key, name varchar(100), department varchar(50));
+insert into employee(name, department) values('Alice', 'DEV'),('Bob', 'HR'),('Charlie', 'Business');
+select * from employee;
+create table projects (project_id serial primary key, project_name varchar(100), employee_id int, foreign key (employee_id) references employee(employee_id));
+insert into projects(project_name, employee_id) values('Website Redesign', 1),('Ad Campaign', 2);
+select * from projects;
+insert into projects(project_name, employee_id) values('Website Redesign',4);
+select employee.name, projects.project_name from projects inner join employee on projects.employee_id=employee.employee_id;
+select employee.name, projects.project_name from projects left join employee on projects.employee_id=employee.employee_id;
+select employee.name, projects.project_name from projects right join employee on projects.employee_id=employee.employee_id;
+\q
+\c test1
+\l
+\dt
+\d employee
+\dn
+\df
+\c postgress
+\c postgres
+\df
+\df
+\c test
+\df
+\dv
+\c test1
+\dv
+\du
+psql -V
+\q
+\s
+\s command_history.txt
