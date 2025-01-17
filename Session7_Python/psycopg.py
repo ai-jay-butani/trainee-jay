@@ -6,7 +6,7 @@ print(conn)
 
 cursor = conn.cursor()
 
-'''cursor.execute("""
+cursor.execute("""
             CREATE TABLE customers (
                 id serial PRIMARY KEY,
                 name varchar(100),
@@ -42,7 +42,7 @@ cursor.execute("""
 	       
 cursor.execute("""
 		INSERT INTO orders(customer_id,product_id,quantity,order_date) values (1,2,1,'2025-01-01'),(2,1,3,'2025-01-02')
-	       """)'''
+	       """)
 	       
 
 cursor.execute("""
@@ -50,13 +50,22 @@ cursor.execute("""
 		left join products on customers.id = products.id
 		left join orders on  customers.id = orders.customer_id
 		""")
+		
 
 data = cursor.fetchall()
 
-for r in data:
-	print(r)
-	
+cursor.execute("""
+            CREATE TABLE leftjoin1(
+                customer_name varchar(100),
+                customer_email varchar(100),
+                orders_quantity int)
+            """)
 
+sql1 = 'INSERT INTO leftjoin1(customer_name,customer_email,orders_quantity) values (%s,%s,%s)'
+for row in data:   
+	print(row)         
+	cursor.execute(sql1,row)
+	   	
 cursor.execute("""
 		select products.name from orders
 		right join products on products.id = orders.id
@@ -64,16 +73,36 @@ cursor.execute("""
 		""")
 		
 data1 = cursor.fetchall()
-print(data1)
 
 cursor.execute("""
-		select customers.name,orders.id,products.price*orders.quantity from products
+            CREATE TABLE rightjoin(
+              product_name varchar(100))
+            """)
+
+sql1 = 'INSERT INTO rightjoin(product_name) values (%s)'
+for row in data1:   
+	print(row)         
+	cursor.execute(sql1,row)
+
+cursor.execute("""
+		select customers.name,orders.product_id,products.price*orders.quantity from products
 		inner join orders on  orders.product_id = products.id
 		inner join customers on customers.id = products.id
 		where products.price > 50""")
 		
 data2 = cursor.fetchall()
-print(data2)
+
+cursor.execute("""
+            CREATE TABLE innerjoin(
+              customer_name varchar(100),
+              product_id int,
+              total_price int)
+            """)
+
+sql1 = 'INSERT INTO innerjoin(customer_name,product_id,total_price) values (%s,%s,%s)'
+for row in data2:   
+	print(row)         
+	cursor.execute(sql1,row)
       
 conn.commit()
 conn.close()

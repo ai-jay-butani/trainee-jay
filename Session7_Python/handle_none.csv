@@ -1,0 +1,4 @@
+customer_name,customer_email,orders_quantity
+Alice,alice@email.com,1
+Bob,bob@email.com,3
+Charlie,charlie@email.com,0
