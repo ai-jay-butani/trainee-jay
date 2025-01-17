@@ -6,7 +6,7 @@ print(conn)
 
 cursor = conn.cursor()
 
-cursor.execute("""
+'''cursor.execute("""
             CREATE TABLE customers (
                 id serial PRIMARY KEY,
                 name varchar(100),
@@ -42,13 +42,13 @@ cursor.execute("""
 	       
 cursor.execute("""
 		INSERT INTO orders(customer_id,product_id,quantity,order_date) values (1,2,1,'2025-01-01'),(2,1,3,'2025-01-02')
-	       """)
+	       """)'''
 	       
 
 cursor.execute("""
 		select customers.name,customers.email,coalesce(orders.quantity,0) from customers 
 		left join products on customers.id = products.id
-		left join orders on  customers.id = orders.id
+		left join orders on  customers.id = orders.customer_id
 		""")
 
 data = cursor.fetchall()
@@ -67,8 +67,8 @@ data1 = cursor.fetchall()
 print(data1)
 
 cursor.execute("""
-		select orders.id,products.price*orders.quantity from products
-		inner join orders on  orders.id = products.id
+		select customers.name,orders.id,products.price*orders.quantity from products
+		inner join orders on  orders.product_id = products.id
 		inner join customers on customers.id = products.id
 		where products.price > 50""")
 		
