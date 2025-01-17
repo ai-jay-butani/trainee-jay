@@ -9,8 +9,7 @@ def Decorator(func):
 		print("Choose % operator for Modulo.")
 		print("Choose x for Exits.")
 		choice = input("Enter your choice: ")
-		if choice == 'x':
-			return
+		
 		match choice:
 			case '+':
 				try:
@@ -54,6 +53,8 @@ def Decorator(func):
 					Calculator()
 				except Exception as e:
 					print(f"{e} Exception occur.")	
+			case 'x':
+				return
 			case __:
 				print("Not a Valid Option.")
 				Calculator()
