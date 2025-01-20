@@ -1,4 +1,3 @@
-
 ##Logic
 def options(dict1 = {}):
 	print("Please Enter 1 for add option")
@@ -14,12 +13,17 @@ def options(dict1 = {}):
 		choice = input(f"Which {_name} you want to {option} the {add_name} please Enter: ")
 		choice = choice.lower()
 		return choice,gen_list
+		
+	def check_duplicate(data,city):
+		if city in data:
+			return False
+		else:
+			return True
 	
 	if input_choice == 1:
 	
 		def add():
-		
-			
+	
 			def add_country():
 				input_country = input("Enter Country: ")
 				input_country = input_country.lower()
@@ -70,7 +74,10 @@ def options(dict1 = {}):
 							input_city = input("Enter City: ")
 							input_city = input_city.lower()
 							if input_city.isalpha():
-								dict1[country_choice][state_choice].append(input_city)
+								if check_duplicate(dict1[country_choice][state_choice],input_city):
+									dict1[country_choice][state_choice].append(input_city)
+								else:
+									print("This city is already in data.")
 								res = input("Do You want to enter another City Y/N: ")
 								if res == "N" or res == 'n':
 									pass
@@ -89,7 +96,6 @@ def options(dict1 = {}):
 								
 				add_city()	
 		add()
-	
 		options(dict1)	
 				
 	elif input_choice == 2:
@@ -141,10 +147,14 @@ def options(dict1 = {}):
 						city_choice = input("Which city you want to Update please Enter: ")
 						city_choice = city_choice.lower()
 						if city_choice in city_list:
-							dict1[country_choice][state_choice].remove(city_choice)
 							update_city_name = input("Please Enter new city: ")
 							update_city_name  = update_city_name.lower()
-							dict1[country_choice][state_choice].append(update_city_name)
+							if check_duplicate(dict1[country_choice][state_choice],update_city_name):
+								dict1[country_choice][state_choice].remove(city_choice)
+								dict1[country_choice][state_choice].append(update_city_name)
+							else:
+								print("The city is already in data.")
+								update_city()
 						else:
 							print("You are selected city is not in list")
 							update_city()
@@ -159,7 +169,6 @@ def options(dict1 = {}):
 				update()	
 		
 		update()
-		
 		options(dict1)
 		
 	elif input_choice == 3:
@@ -223,7 +232,6 @@ def options(dict1 = {}):
 				print("You are not selected valid permission")	
 				delete()
 		delete()
-		
 		options(dict1)
 			
 	elif input_choice == 4:
@@ -246,10 +254,7 @@ def options(dict1 = {}):
 ##main	
 import time
 
-start_time = time.time()
-print(start_time)	
+start_time = time.time()	
 options()
 end_time = time.time()
-print(end_time)
-
 print("Time taken by function: ",end_time-start_time)
