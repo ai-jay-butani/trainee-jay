@@ -16,43 +16,52 @@ def Decorator(func):
 					a,b = func()
 					print(f"Addition of {a} and {b} is: {a+b}")
 					Calculator()
-				except Exception as e:
-					print(f"{e} Exception occur.")		
+				except:
+					print("Invalid number.")
+					Calculator()		
 			case '-':
 				try:
 					a,b = func()
 					print(f"Subtraction of {a} and {b} is: {a-b}")
 					Calculator()
-				except Exception as e:
-					print(f"{e} Exception occur.")		
+				except:
+					print("Invalid number.")
+					Calculator()		
 			case '*':
 				try:
 					a,b = func()
 					print(f"Multiplication of {a} and {b} is: {a*b}")
 					Calculator()
-				except Exception as e:
-					print(f"{e} Exception occur.")		
+				except:
+					print("Invalid number.")
+					Calculator()		
 			case '/':
 				try:
 					a,b = func()
 					print(f"Divison of {a} and {b} is: {a/b}")
 					Calculator()
-				except Exception as e:
-					print(f"{e} Exception occur.")
+				except ZeroDivisionError:
+					print(f"ZeroDivisionError Exception occur.")
+					Calculator()
+				except:
+					print("Invalid number.")
+					Calculator()
 			case '^':
 				try:
 					a,b = func()
 					print(f"Power of {a} and {b} is: {a**b}")
 					Calculator()
-				except Exception as e:
-					print(f"{e} Exception occur.")	
+				except:
+					print("Invalid number.")
+					Calculator()
 			case '%':
 				try:
 					a,b = func()
 					print(f"{a} modulo {b} is: {a%b}")
 					Calculator()
-				except Exception as e:
-					print(f"{e} Exception occur.")	
+				except:
+					print("Invalid number.")
+					Calculator()
 			case 'x':
 				return
 			case __:
