@@ -2,8 +2,6 @@ import psycopg2
 
 conn = psycopg2.connect("dbname=test2 user=odoo password=odoo host=127.0.0.1 port=5432")
 
-print(conn)
-
 cursor = conn.cursor()
 
 cursor.execute("""
@@ -46,22 +44,23 @@ cursor.execute("""
 	       
 
 cursor.execute("""
-		select customers.name,customers.email,coalesce(orders.quantity,0) from customers 
-		left join products on customers.id = products.id
+		select customers.name,customers.email,coalesce(products.name,'-'),coalesce(orders.quantity,0) from customers
 		left join orders on  customers.id = orders.customer_id
+		left join products on products.id = orders.product_id
 		""")
 		
 
 data = cursor.fetchall()
 
 cursor.execute("""
-            CREATE TABLE leftjoin1(
+            CREATE TABLE leftjoin(
                 customer_name varchar(100),
                 customer_email varchar(100),
+                product_name varchar(100),
                 orders_quantity int)
             """)
 
-sql1 = 'INSERT INTO leftjoin1(customer_name,customer_email,orders_quantity) values (%s,%s,%s)'
+sql1 = 'INSERT INTO leftjoin(customer_name,customer_email,product_name,orders_quantity) values (%s,%s,%s,%s)'
 for row in data:   
 	print(row)         
 	cursor.execute(sql1,row)

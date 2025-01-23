@@ -1,5 +1,5 @@
 def Check_no_of_EmptySeat(seats,empty_seat_count = 0):
-	for index in range(0,len(seats)-1,3):
+	for index in range(0,len(seats)-1,3): 
 		try:
 			if seats[index] == 0 and seats[index+3] == 1:
 				seats[index] = 1

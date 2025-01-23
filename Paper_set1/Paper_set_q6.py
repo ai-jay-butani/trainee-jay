@@ -89,9 +89,10 @@ minmax_data = df.groupby(['shelf', 'product']).agg(
 		max_price = ('max_sp', 'max')
 		)
 
+df["profit"] = 
 df["avg_cost"] = df['costprice'].apply(lambda x: sum(x)/len(x))
 df["avg_sale"] = df['saleprice'].apply(lambda x: sum(x)/len(x))	
-
+print(df["profit"])
 avg_data = df.groupby(['shelf','month']).agg(
 		avg_cost = ('avg_cost','sum'),
 		avg_sale = ('avg_sale','sum')
