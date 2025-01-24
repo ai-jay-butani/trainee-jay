@@ -1,9 +1,6 @@
 #check amstrong number or not
-
 num = eval(input("Enter number: "))
-
 digit = len(str(num))
-
 print("digit is: ",digit)
 
 def amstrong_number(temp,num,digit,sum1 = 0):
