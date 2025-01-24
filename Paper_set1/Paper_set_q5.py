@@ -13,8 +13,10 @@ def extract_number(input_list,output_list):
 	return output_list
 
 
-input_list = [1234, 5678, 9876, 2345, 8420, 7456, 1548, 2030, 8586, 1002, 6780, 4560, 1204]
-
+input_list = []
+limit_no_list = int(input("Enter no of item which add in list: "))
+for i in range(limit_no_list):
+	input_user = float(input("Enter string: "))
+	input_list.append(input_user)
 output_list = []
-
 print(extract_number(input_list,output_list))
