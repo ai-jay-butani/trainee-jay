@@ -8,10 +8,12 @@ def extract_number(input_list,output_list):
 
 
 input_list = []
-limit_no_list = int(input("Enter no of item which add in list: "))
-for i in range(limit_no_list):
-	input_user = float(input("Enter string: "))
-	input_list.append(input_user)
-
-output_list = []
-print(extract_number(input_list,output_list))
+try:
+	limit_no_list = int(input("Enter no of item which add in list: "))
+	for i in range(limit_no_list):
+		input_user = float(input("Enter Number: "))
+		input_list.append(input_user)
+	output_list = []
+	print(extract_number(input_list,output_list))
+except:
+	print("Invalid Input")

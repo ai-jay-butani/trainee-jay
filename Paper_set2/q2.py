@@ -13,10 +13,13 @@ def format_string(input_str_list):
 
 vowel = {'a','e','i','o','u','A','E','I','O','U'}
 input_list = []
-limit_no_list = int(input("Enter no of item which add in list: "))
-for i in range(limit_no_list):
-	input_user = input("Enter string: ")
-	input_list.append(input_user)
+try:
+	limit_no_list = int(input("Enter no of item which add in list: "))
+	for i in range(limit_no_list):
+		input_user = input("Enter string: ")
+		input_list.append(input_user)
 
-print(format_string(input_list))
+	print(format_string(input_list))
+except:
+	print("Invalid Input")
 		
