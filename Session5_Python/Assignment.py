@@ -1,18 +1,13 @@
 #Banking System
-import random
-
 class BankAccount:
 	
-	def __init__(self,holder,number='1',balance=0):
+	def __init__(self,holder,number,balance=0):
 		
 		self.account_number = number
 		self.holder = holder
 		self.balance = balance
 
 	def providebankaccount(self,data,type_of_account):
-		
-		for i in range(0,8):
-			self.account_number += str(random.randrange(0,9))
 
 		if self.account_number in list(data.keys()):
 			self.providebankaccount(data)
@@ -43,7 +38,7 @@ class BankAccount:
 
 class SavingAccount(BankAccount):
 	
-	def __init__(self,name,number='1',balance=0):
+	def __init__(self,name,number,balance=0):
 		super().__init__(name,number,balance)
 
 	def interest_calculation(self,rate,time):
@@ -60,7 +55,7 @@ class SavingAccount(BankAccount):
 
 class CurrentAccount(BankAccount):
 	
-	def __init__(self,name,number='1',balance=0):
+	def __init__(self,name,number,balance=0):
 		super().__init__(name,number,balance)
 
 	def add_overdraft(self):
@@ -78,22 +73,33 @@ class CurrentAccount(BankAccount):
 		return self.balance
 
 def banking_options(obj,type1):
-	deposite_pernission = input("Do you want to deposite money Y/N: ")
-	if deposite_pernission == 'y' or deposite_pernission == 'Y':
-		depo_amt = eval(input("Please Enter Deposite amount: "))
-		amt = obj.deposite(depo_amt)
-		data[type1][account_number] = amt
+	while True:
+		print("Enter 1 for Deposite Amount: ")
+		print("Enter 2 for Withdraw Amount: ")
+		print("Enter 3 for check balance: ")
+		print("Enter 4 for check interest amount: ")
+		print("Enter 5 for Exit")
+		choice = int(input("Enter Your choice: "))
+		if choice == 1:
+			depo_amt = eval(input("Please Enter Deposite amount: "))
+			amt = obj.deposite(depo_amt)
+			data[type1][account_number] = amt
 
-	withdraw_pernission = input("Do you want to withdraw money Y/N: ")
-	if withdraw_pernission == 'y' or withdraw_pernission == 'Y':
-		withdraw_amount = eval(input("Please Enter Withdraw amount: "))
-		amt = obj.withdrawal(withdraw_amount)
-		data[type1][account_number] = amt
+		elif choice == 2:
+			withdraw_amount = eval(input("Please Enter Withdraw amount: "))
+			amt = obj.withdrawal(withdraw_amount)
+			data[type1][account_number] = amt
 
-	balance_pernission = input("Do you want to check balance Y/N: ")
-	if balance_pernission == 'y' or balance_pernission == 'Y':
-		obj.display_balance()
-
+		elif choice == 3:
+			obj.display_balance()
+		
+		elif choice == 4:
+			sav_obj.add_interest()
+		elif choice == 5:
+			break
+		else:
+			print("Invalid choice")
+		
 #main
 data = {"saving":{},"current":{}}
 
@@ -107,17 +113,14 @@ while True:
 	if choice == 1:
 		type_account = input("What is type of account saving or current please enter: ").lower()
 		holder_name = input("Give your holder name: ")
-		account_number = input("Enter your account number: ")
+		account_number = input("Enter Account Number in 10 digit: ")
+		while len(account_number) != 10:
+			print("Account Number is not valid")
+			account_number = input("Enter Account Number in 10 digit: ")
 		if type_account == "saving":
 			if account_number in list(data["saving"].keys()):
 				sav_obj = SavingAccount(holder_name,account_number,data["saving"][account_number])
-				
-				banking_options(sav_obj,"saving")
-
-				interest_pernission = input("Do you want to check saving account interest Y/N: ")
-				if interest_pernission == 'y' or interest_pernission == 'Y':
-					sav_obj.add_interest()
-				
+				banking_options(sav_obj,"saving")	
 			else:
 				print("Your saving account is not created firt you create your account.")
 		
@@ -137,14 +140,18 @@ while True:
 	elif choice == 2:
 		type_open_account = input("Which type of account is create saving or current please enter: ").lower()
 		holder_name = input("Give your holder name: ")
-
+		account_number = input("Enter Account Number in 10 digit: ")
+		while len(account_number) != 10:
+			print("Account Number is not valid")
+			account_number = input("Enter Account Number in 10 digit: ")
+		
 		if type_open_account == "saving":
-			sav_obj = SavingAccount(holder_name)
+			sav_obj = SavingAccount(holder_name,account_number)
 
 			sav_obj.providebankaccount(data,"saving")
 
 		elif type_open_account == "current":
-			curr_obj = CurrentAccount(holder_name)
+			curr_obj = CurrentAccount(holder_name,account_number)
 
 			curr_obj.providebankaccount(data,"current")
 
