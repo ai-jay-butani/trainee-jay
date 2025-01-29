@@ -73,13 +73,6 @@ class CurrentAccount(BankAccount):
 		return self.balance
 
 def banking_options(obj,type1):
-	while True:
-		print("Enter 1 for Deposite Amount: ")
-		print("Enter 2 for Withdraw Amount: ")
-		print("Enter 3 for check balance: ")
-		print("Enter 4 for check interest amount: ")
-		print("Enter 5 for Exit")
-		choice = int(input("Enter Your choice: "))
 		if choice == 1:
 			depo_amt = eval(input("Please Enter Deposite amount: "))
 			amt = obj.deposite(depo_amt)
@@ -104,9 +97,13 @@ def banking_options(obj,type1):
 data = {"saving":{},"current":{}}
 
 while True:
-	print("Press 1 If your bank account alredy created.")
-	print("Press 2 If your bank account is not created so please create.")
-	print("Press 3 for exit.")		
+	print("Enter 1 for Saving Account: ")
+	print("Enter 2 for Current Account: ")
+	print("Enter 1 for Deposite Amount: ")
+	print("Enter 2 for Withdraw Amount: ")
+	print("Enter 3 for check balance: ")
+	print("Enter 4 for check interest amount: ")
+	print("Enter 5 for Exit")		
 			
 	choice = int(input("Enter your choice: "))
 
