@@ -1,29 +1,21 @@
 #Banking System
 class BankAccount:
-	
 	def __init__(self,holder,number,balance=0):
-		
 		self.account_number = number
 		self.holder = holder
 		self.balance = balance
 
 	def providebankaccount(self,data,type_of_account):
-
-		if self.account_number in list(data.keys()):
-			self.providebankaccount(data)
-		else:
-			data[type_of_account][self.account_number] = self.balance
-			print("Your Account Number is: ",self.account_number)
+		data[self.account_number] = []
+		data[self.account_number].extend([self.balance,type_of_account])
 		
 	def deposite(self,deposite_amount):
-		
 		self.add_amount = deposite_amount
 		self.balance = self.balance + self.add_amount
 		print("Deposite Succesfully.")
 		return self.balance
 		
 	def withdrawal(self,withdraw_amount):
-	
 		self.withdraw_amount = withdraw_amount
 		if self.balance < self.withdraw_amount:
 			print("Your withdrwal amount is grater than balance.")
@@ -58,107 +50,105 @@ class CurrentAccount(BankAccount):
 	def __init__(self,name,number,balance=0):
 		super().__init__(name,number,balance)
 
-	def add_overdraft(self):
+	def overdraft(self):
 		self.overdraft_limit = 20000
+		print(f"Overdraft limit is {self.overdraft_limit}")
 		
 	def withdrawal(self, withdraw_amount):
 		self.withdraw_amount = withdraw_amount
-		self.add_overdraft()
+		self.overdraft()
 		if 0<= self.withdraw_amount <= self.balance + self.overdraft_limit:
-			print(f"Overdraft loan is {self.withdraw_amount - self.balance}")
 			self.balance = self.balance - self.withdraw_amount
-			print("Withdraw Succesfully.")
+			print("Withdraw Successfully")
+		else:
+			print("Your Balance is lower than overdraft limit plus balance.")
 			
-
 		return self.balance
-
-def banking_options(obj,type1):
-		if choice == 1:
-			depo_amt = eval(input("Please Enter Deposite amount: "))
-			amt = obj.deposite(depo_amt)
-			data[type1][account_number] = amt
-
-		elif choice == 2:
-			withdraw_amount = eval(input("Please Enter Withdraw amount: "))
-			amt = obj.withdrawal(withdraw_amount)
-			data[type1][account_number] = amt
-
-		elif choice == 3:
-			obj.display_balance()
-		
-		elif choice == 4:
-			sav_obj.add_interest()
-		elif choice == 5:
-			break
-		else:
-			print("Invalid choice")
-		
-#main
-data = {"saving":{},"current":{}}
-
-while True:
-	print("Enter 1 for Saving Account: ")
-	print("Enter 2 for Current Account: ")
-	print("Enter 1 for Deposite Amount: ")
-	print("Enter 2 for Withdraw Amount: ")
-	print("Enter 3 for check balance: ")
-	print("Enter 4 for check interest amount: ")
-	print("Enter 5 for Exit")		
-			
+	
+def banking_options(obj=None,data={}):
+	print("Enter 1 for Create Saving Account: ")
+	print("Enter 2 for Create Current Account: ")
+	print("Enter 3 for Deposite Amount: ")
+	print("Enter 4 for Withdraw Amount: ")
+	print("Enter 5 for check balance: ")
+	print("Enter 6 for check interest amount: ")
+	print("Enter 7 for check overdraft amount: ")
+	print("Enter 8 for Exit")				
 	choice = int(input("Enter your choice: "))
-
+	
+	if choice != 8:
+		holder_name = input("Give your holder name: ")
+		account_number = input("Enter Account Number in 10 digit: ")
+		if len(account_number) == 10 and account_number.isdigit():
+			pass
+		else:
+			print("Account Number is not valid")
+			banking_options(obj,data)
+			return
+		
 	if choice == 1:
-		type_account = input("What is type of account saving or current please enter: ").lower()
-		holder_name = input("Give your holder name: ")
-		account_number = input("Enter Account Number in 10 digit: ")
-		while len(account_number) != 10:
-			print("Account Number is not valid")
-			account_number = input("Enter Account Number in 10 digit: ")
-		if type_account == "saving":
-			if account_number in list(data["saving"].keys()):
-				sav_obj = SavingAccount(holder_name,account_number,data["saving"][account_number])
-				banking_options(sav_obj,"saving")	
-			else:
-				print("Your saving account is not created firt you create your account.")
-		
-		elif type_account == "current":
-			if account_number in list(data["current"].keys()):
-				curr_obj = CurrentAccount(holder_name,account_number,data["current"][account_number])
-
-				banking_options(curr_obj,"current")
-
-			else:
-				print("Your current account is not exist.")
-
-		else:
-			print("please enter valid type of account.")
-
-
-	elif choice == 2:
-		type_open_account = input("Which type of account is create saving or current please enter: ").lower()
-		holder_name = input("Give your holder name: ")
-		account_number = input("Enter Account Number in 10 digit: ")
-		while len(account_number) != 10:
-			print("Account Number is not valid")
-			account_number = input("Enter Account Number in 10 digit: ")
-		
-		if type_open_account == "saving":
+		if obj == None or (account_number not in data.keys())	:
 			sav_obj = SavingAccount(holder_name,account_number)
-
 			sav_obj.providebankaccount(data,"saving")
-
-		elif type_open_account == "current":
-			curr_obj = CurrentAccount(holder_name,account_number)
-
-			curr_obj.providebankaccount(data,"current")
-
 		else:
-			print("Please enter valid type of account.")
+			print("Account is already created.")
+			sav_obj = SavingAccount(holder_name,account_number,data[account_number][0])
+		banking_options(sav_obj,data)
+		return
 
+	elif choice == 2:	
+		if obj == None or account_number not in data.keys():
+			curr_obj = CurrentAccount(holder_name,account_number)
+			curr_obj.providebankaccount(data,"saving")
+		else:
+			print("Account is already created.")
+			curr_obj = CurrentAccount(holder_name,account_number,data[account_number][0])
+		banking_options(curr_obj,data)
+		return
+	
 	elif choice == 3:
-		break
+		depo_amt = eval(input("Please Enter Deposite amount: "))
+		amount = obj.deposite(depo_amt)
+		data[account_number][0] = amount
+		banking_options(obj,data)
+		return
 
+	elif choice == 4:
+		withdraw_amount = eval(input("Please Enter Withdraw amount: "))
+		amount = obj.withdrawal(withdraw_amount)
+		data[account_number][0] = amount
+		banking_options(obj,data)
+		return
+	
+	elif choice == 5:
+		obj.display_balance()
+		banking_options(obj,data)
+		return
+		
+	elif choice == 6:
+		try:
+			obj.add_interest()
+		except:
+			print("This is not valid Type of account to check this option.")
+		finally:
+			banking_options(obj,data)
+			return
+	
+	elif choice == 7:
+		try:
+			obj.overdraft()
+		except:
+			print("This is not valid Type of account to check this option.")
+		finally:
+			banking_options(obj,data)
+			return
+	
+	elif choice == 8:
+		return
 	else:
 		print("Not a Valid Choice.")
-		
+		banking_options(obj,data)
+				
+#main
+banking_options()
 		
