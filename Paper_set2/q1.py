@@ -4,12 +4,9 @@ Display those words with the ‘#’ separator (use the join function).
 For example: WORD1 # WORD2 # WORD3'''
 
 def extract_repeted_words(user_input):
-	sentence_toword = user_input.split(' ')
-	repeted_words = []
-	for i in sentence_toword:
-		if (user_input.count(i) > 1) and (i not in repeted_words):
-			repeted_words.append(i)
-			
+	sentence_to_word = user_input.split(' ')
+	repeted_words = []		
+	[repeted_words.append(word) for word in sentence_to_word if (user_input.count(word) > 1) and (word not in repeted_words)]
 	return '#'.join(repeted_words)
 	
 user_input = input("Enter Sentence: ")

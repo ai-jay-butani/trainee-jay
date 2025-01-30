@@ -3,12 +3,10 @@ using built-in functions.
 a. The first character must capitalize and consonant.
 b. The string must not contain any number.'''
 
-
 def format_string(input_str_list):
 	output_list = []
-	for string in input_str_list:
-		if (string[0] not in vowel) and (not string.isdigit()) and (ord('A')<ord(string[0])<ord('Z')):
-			output_list.append(string)
+	[output_list.append(string) for string in input_str_list 
+	if (string[0] not in vowel) and (not string.isdigit()) and (string[0].isupper())]
 	return output_list
 
 vowel = {'a','e','i','o','u','A','E','I','O','U'}

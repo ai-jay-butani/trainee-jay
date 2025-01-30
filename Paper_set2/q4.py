@@ -96,7 +96,7 @@ def employee_name_by_pm(pm_name,team_structure):
 
     return employees
 
-pm_name = input("Display all employees' names so please give the project manager name: ")
+pm_name = input("Please give the project manager name to display all employees' names: ")
 print(employee_name_by_pm(pm_name,team_structure))
 
 #b.
@@ -119,7 +119,7 @@ def employee_name_filter_experience(exp_years,team_structure):
     return employee
 
 try:
-	experience_years = int(input("Please Enter experience years to filter the employee name more than enter experience years: "))
+	experience_years = int(input("Please Enter experience years to filter(more than) the employee name: "))
 	print(employee_name_filter_experience(experience_years,team_structure))
 except:
 	print("Invalid Input")
@@ -147,7 +147,7 @@ try:
 	new_exp_years = eval(input("Please enter new experience years: "))
 	lower_limit = eval(input("Please enter lower limit of experience years: "))
 	upper_limit = eval(input("Please enter upper limit of experience years: "))
-	print(update_experience_years(4.6,3.5,4.5,team_structure))
+	print(update_experience_years(new_exp_years,lower_limit,upper_limit,team_structure))
 except:
 	print("Invalid Input")
 
@@ -171,7 +171,7 @@ def check_employee_exp_years_less(exp_years,team_structure):
     return employee
 
 try:
-	experience_years = int(input("Please Enter experience years to filter the employee name less than enter experience years: "))
+	experience_years = int(input("Please Enter experience years to filter(less than) the employee name: "))
 	print(check_employee_exp_years_less(experience_years,team_structure))
 except:
 	print("Invalid Input")

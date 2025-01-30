@@ -235,12 +235,10 @@ def options(dict1 = {}):
 		options(dict1)
 			
 	elif input_choice == 4:
-		
 		print(dict1)
 		options(dict1)
 	
 	elif input_choice == 5:
-	
 		return
 		
 	else:
