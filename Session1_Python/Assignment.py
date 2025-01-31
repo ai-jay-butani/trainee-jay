@@ -251,7 +251,6 @@ def options(dict1 = {}):
 	
 ##main	
 import time
-
 start_time = time.time()	
 options()
 end_time = time.time()
