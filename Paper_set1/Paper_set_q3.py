@@ -2,9 +2,10 @@
 
 a=10
 b=20
-print(a and b) #check both operand truthy and give 2nd operand value  #output is: 20
-print(a or b) #check first operand truthy and not check 2nd operand and give first operand value  #output is: 10
-
+print(a and b) #check both operand truthy and give 2nd operand value 
+#output is: 20
+print(a or b) #check first operand truthy and not check 2nd operand and give first operand value
+#output is: 10
 
 #b.
 

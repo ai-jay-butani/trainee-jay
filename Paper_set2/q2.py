@@ -6,7 +6,7 @@ b. The string must not contain any number.'''
 def format_string(input_str_list):
 	output_list = []
 	[output_list.append(string) for string in input_str_list 
-	if (string[0] not in vowel) and (not string.isdigit()) and (string[0].isupper())]
+	if (string[0] not in vowel) and (string.isalpha()) and (string[0].isupper())]
 	return output_list
 
 vowel = {'a','e','i','o','u','A','E','I','O','U'}
