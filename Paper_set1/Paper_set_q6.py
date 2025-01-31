@@ -1,23 +1,28 @@
 class Shelf:
-
-	def add_shelf(self,no_of_shelf = 0,data={}):
+	def add_shelf(self,data,no_of_shelf = 0):
 		for i in range(no_of_shelf):
 			shelfName = input("Enter shelf name: ")
-			data[shelfName] = {}
+			if not shelfName.isdigit():
+				data[shelfName] = {}
+			else:
+				print("Shelf name is not valid.")
 		return data
 		
-	def add_product(self,no_of_product=0,data={}):
+	def add_product(self,data,no_of_product=0):
 		self.no_of_product = no_of_product
 		shelfName = input("Which shelf you want to add product Please Enter:")
 		if shelfName in data.keys():
 			for i in range(self.no_of_product):
 				productName = input("Enter Product Name: ")
-				data[shelfName][productName] = {}
+				if not productName.isdigit():
+					data[shelfName][productName] = {}
+				else:
+					print("Product name is not valid.")
 		else:
 			print("Shelf name is not in data.")
 		return data
 			
-	def add_month(self,no_of_month=0,data):
+	def add_month(self,data,no_of_month=0):
 		self.no_of_month = no_of_month
 		shelfName = input("Which shelf you want to add month Please Enter:")
 		if shelfName in data.keys():
@@ -28,12 +33,15 @@ class Shelf:
 		if productName in data[shelfName].keys():
 			for i in range(self.no_of_month):
 				monthName = input("Enter Month: ")
-				data[shelfName][productName][monthName] = {}
+				if not monthName.isdigit():
+					data[shelfName][productName][monthName] = {}
+				else:
+					print("Month name is not valid.")
 		else:
 			print("Product name is not in data.")
 		return data
 		
-	def add_cost_sale_price(self,no_of_costPrice=0,percentage=0,functionality="add",data={}):
+	def add_cost_sale_price(self,data,no_of_costPrice=0,percentage=0,functionality="add"):
 		self.no_of_costPrice = no_of_costPrice
 		shelfName = input(f"Which shelf you want to {functionality} cost price Please Enter:")
 		if shelfName in data.keys():
@@ -46,7 +54,7 @@ class Shelf:
 		else:
 			print("Product name is not in data.")
 			
-		if monthName in self.data[shelfName][productName].keys():
+		if monthName in data[shelfName][productName].keys():
 			data[shelfName][productName][monthName]["cp"] = []
 			data[shelfName][productName][monthName]["sp"] = []
 			data[shelfName][productName][monthName]["profit"] = []
@@ -54,7 +62,7 @@ class Shelf:
 				cp = float(input("Enter cost price: "))
 				data[shelfName][productName][monthName]["cp"].append(cp)
 				
-			for i in self.data[shelfName][productName][monthName]["cp"]:
+			for i in data[shelfName][productName][monthName]["cp"]:
 				data[shelfName][productName][monthName]["sp"].append(i + (i*percentage)/100)
 				
 			for i,j in zip(data[shelfName][productName][monthName]["sp"],
@@ -63,38 +71,8 @@ class Shelf:
 		else:
 			print("Month name is not in data.")
 		return data
-		
-	def update_saleprice_pershelf(self,df):
-		choice_shelfName = input("Enter shelf name: ")
-		if choice_shelfName in df["shelf"]:
-			percentage = int(input("Enter new profit margin: "))
-			def iterate_price(x):
-				y = []
-				for i in x:
-					y.append((i + (i*percentage)/100))
-				return y
-			df.loc[(df["shelf"] == choice_shelfName),"saleprice"] = df["costprice"].apply(iterate_price)
-			print("updated successfully.....")
-		else:
-			print("Shelf name is not in data.")
-		return df
-	
-	def update_saleprice_perproduct(self,df):
-		choice_productName = input("Enter shelf name: ")
-		if choice_productName in df["product"]:
-			percentage = int(input("Enter new profit margin: "))
-			def iterate_price(x):
-				y = []
-				for i in x:
-					y.append((i + (i*percentage)/100))
-				return y
-			df.loc[(df["product"] == choice_productName),"saleprice"] = df["costprice"].apply(iterate_price)
-			print("updated successfully.....")
-		else:
-			print("Product name is not in data.")
-		return df
-		
-	def set_category(self,data={}):
+				
+	def set_category(self,data):
 		shelfName = input(f"Which shelf you want to add category Please Enter:")
 		if shelfName in data.keys():
 			productName = input("Which product you want to add category please enter: ")
@@ -108,8 +86,8 @@ class Shelf:
 			print("Product name is not in data.")
 		return data
 
-	def reset_cost_price(self):
-		return self.add_cost_sale_price(0,0,"reset")
+	def reset_cost_price(self,data):
+		return self.add_cost_sale_price(data,0,0,"reset")
 		
 			
 class DataAnalyse:
@@ -157,6 +135,38 @@ class DataAnalyse:
 	   			)
 		return avg_data_product
 	   	
+	def update_saleprice_pershelf(self,df):
+		choice_shelfName = input("Enter shelf name: ")
+		if choice_shelfName in df["shelf"].tolist():
+			percentage = int(input("Enter new profit margin: "))
+			def iterate_price(x):
+				y = []
+				for i in x:
+					y.append((i + (i*percentage)/100))
+				return y
+			df.loc[(df["shelf"] == choice_shelfName),"saleprice"] = df["costprice"].apply(iterate_price)
+			print("updated successfully.....")
+		else:
+			print("Shelf name is not in data.")
+		return df
+		
+	def update_saleprice_perproduct(self,df):
+		choice_productName = input("Enter product name: ")
+		print(df)
+		print(df["product"].tolist())
+		if choice_productName in df["product"].tolist():
+			percentage = int(input("Enter new profit margin: "))
+			def iterate_price(x):
+				y = []
+				for i in x:
+					y.append((i + (i*percentage)/100))
+				return y
+			df.loc[(df["product"] == choice_productName),"saleprice"] = df["costprice"].apply(iterate_price)
+			print("updated successfully.....")
+		else:
+			print("Product name is not in data.")
+		return df
+		
 def repeted_obj(data):
 	data_analyse = DataAnalyse()
 	df = data_analyse.dictionary_convertDataFrame(data)
@@ -166,20 +176,6 @@ def repeted_obj(data):
 import pandas as pd
 
 obj = Shelf()
-while True:
-	try:
-		no_of_shelf = int(input("Enter the no of shelf you want to add: "))
-		obj.add_shelf(no_of_shelf)
-		no_of_product = int(input("Enter the no of product you want to add: "))
-		obj.add_product(no_of_product)
-		no_of_month = int(input("Enter the no of month you want to add: "))
-		obj.add_month(no_of_month)
-		no_of_costprice = int(input("Enter the no of cost price you want to add: "))
-		percentage = int(input("Enter the profit margin: "))
-		obj.add_cost_sale_price(no_of_costprice, percentage)
-		break
-	except:
-		print("Input Number is not valid.")
 data = {}	
 while True:
 	print("Please Enter 1 for add shelf: ")
@@ -197,38 +193,59 @@ while True:
 	choice = int(input("Enter choice: "))
 	
 	if choice == 1:
-		no_of_shelf = int(input("Enter the no of shelf you want to add: "))
-		data = obj.add_shelf(no_of_shelf,data)
+		try:
+			no_of_shelf = int(input("Enter the no of shelf you want to add: "))
+			data = obj.add_shelf(data,no_of_shelf)
+		except:
+			print("Input is not valid")
 	elif choice == 2:
-		no_of_product = int(input("Enter the no of product you want to add: "))
-		data = obj.add_product(no_of_product,data)
+		try:
+			no_of_product = int(input("Enter the no of product you want to add: "))
+			data = obj.add_product(data,no_of_product)
+		except:
+			print("Input is not valid")
 	elif choice == 3:
-		no_of_month = int(input("Enter the no of month you want to add: "))
-		data = obj.add_month(no_of_month,data)
-	if choice == 1:
-		no_of_costprice = int(input("Enter the no of cost price you want to add: "))
-		percentage = int(input("Enter the profit margin: "))
-		data = obj.add_cost_sale_price(no_of_costprice, percentage,data)
-	elif choice == 2:
+		try:
+			no_of_month = int(input("Enter the no of month you want to add: "))
+			data = obj.add_month(data,no_of_month)
+		except:
+			print("Input is not valid")
+	elif choice == 4:
+		try:
+			no_of_costprice = int(input("Enter the no of cost price you want to add: "))
+			percentage = int(input("Enter the profit margin: "))
+			data = obj.add_cost_sale_price(data,no_of_costprice, percentage)
+		except:
+			print("Input is not valid")
+	elif choice == 5:
 		data_analyse, df = repeted_obj(data)
 		df = data_analyse.update_saleprice_perproduct(df)
-	elif choice == 3:
-		data_analyse, df = repeted_obj(obj)
-		df = obj.update_saleprice_pershelf(df)
-	elif choice == 4:
-		data = obj.set_category(data)
 	elif choice == 6:
-		data = obj.reset_cost_price(data)
+		data_analyse, df = repeted_obj(data)
+		df = data_analyse.update_saleprice_pershelf(df)
 	elif choice == 7:
-		data_analyse, df = repeted_obj(data)
-		print(data_analyse.MinMax_SalePrice(df))
+		data = obj.set_category(data)
 	elif choice == 8:
-		data_analyse, df = repeted_obj(data)
-		print(data_analyse.AvgPrice_PerShelfMonth(df))
+		data = obj.reset_cost_price(data)
 	elif choice == 9:
-		data_analyse, df = repeted_obj(data)
-		print(data_analyse.AvgPrice_PerProductMonth(df))
+		try:
+			data_analyse, df = repeted_obj(data)
+			print(data_analyse.MinMax_SalePrice(df))
+		except:
+			print("Not any Data")
 	elif choice == 10:
+		try:
+			data_analyse, df = repeted_obj(data)
+			print(data_analyse.AvgPrice_PerShelfMonth(df))
+		except:
+			print("Not any Data")
+	elif choice == 11:
+		try:
+			data_analyse, df = repeted_obj(data)
+			print(data_analyse.AvgPrice_PerProductMonth(df))
+		except:
+			print("Not any Data")
+	elif choice == 12:
 		break
 	else:
 		print("Invalid choice")
