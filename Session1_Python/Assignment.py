@@ -1,5 +1,5 @@
 ##Logic
-def options(dict1 = {}):
+def options(main_data = {}):
 	print("Please Enter 1 for add option")
 	print("Please Enter 2 for update option")
 	print("Please Enter 3 for Delete option")
@@ -9,10 +9,13 @@ def options(dict1 = {}):
 	
 	def general_list(data,_name,option,add_name=''):
 		gen_list = list(data.keys())
-		print(gen_list)
-		choice = input(f"Which {_name} you want to {option} the {add_name} please Enter: ")
-		choice = choice.lower()
-		return choice,gen_list
+		if gen_list == []:
+			return '',gen_list
+		else:
+			print(gen_list)
+			choice = input(f"Which {_name} you want to {option} the {add_name} please Enter: ")
+			choice = choice.lower()
+			return choice,gen_list
 		
 	def check_duplicate(data,city):
 		if city in data:
@@ -28,7 +31,7 @@ def options(dict1 = {}):
 				input_country = input("Enter Country: ")
 				input_country = input_country.lower()
 				if input_country.isalpha():
-					dict1[input_country] = {}
+					main_data[input_country] = {}
 					res = input("Do You want to enter another Country Y/N: ")
 					if res == "N" or res == 'n':
 						pass
@@ -42,12 +45,12 @@ def options(dict1 = {}):
 			
 			def add_state():
 			
-				country_choice,country_list = general_list(dict1,"country","add","state")
+				country_choice,country_list = general_list(main_data, "country", "add", "state")
 				if country_choice in country_list:
 					input_state = input("Enter State: ")
 					input_state = input_state.lower()
 					if input_state.isalpha():
-						dict1[country_choice][input_state] = []
+						main_data[country_choice][input_state] = []
 						res = input("Do You want to enter another State Y/N: ")
 						if res == "N" or res == 'n':
 							pass
@@ -68,14 +71,14 @@ def options(dict1 = {}):
 				
 				def add_city():
 					try:
-						country_choice,country_list = general_list(dict1,"country","add","city")
-						state_choice,state_list = general_list(dict1[country_choice],"state","add","city")
+						country_choice,country_list = general_list(main_data, "country", "add", "city")
+						state_choice,state_list = general_list(main_data[country_choice], "state", "add", "city")
 						if state_choice in state_list:
 							input_city = input("Enter City: ")
 							input_city = input_city.lower()
 							if input_city.isalpha():
-								if check_duplicate(dict1[country_choice][state_choice],input_city):
-									dict1[country_choice][state_choice].append(input_city)
+								if check_duplicate(main_data[country_choice][state_choice], input_city):
+									main_data[country_choice][state_choice].append(input_city)
 								else:
 									print("This city is already in data.")
 								res = input("Do You want to enter another City Y/N: ")
@@ -96,7 +99,7 @@ def options(dict1 = {}):
 								
 				add_city()	
 		add()
-		options(dict1)	
+		options(main_data)
 				
 	elif input_choice == 2:
 		
@@ -106,12 +109,12 @@ def options(dict1 = {}):
 			
 			if permission_update == "country":
 				def update_country():
-					country_choice,country_list = general_list(dict1,"country","update")
+					country_choice,country_list = general_list(main_data, "country", "update")
 					if country_choice in country_list:
-						dict1.pop(country_choice)
+						main_data.pop(country_choice)
 						update_country_name = input("Please Enter country new name: ")
 						update_country_name  = update_country_name.lower()
-						dict1[update_country_name] = {}
+						main_data[update_country_name] = {}
 					else:
 						print("You are selected country is not in list")
 						update_country()
@@ -121,13 +124,15 @@ def options(dict1 = {}):
 			elif permission_update == "state":	
 				def update_state():
 					try:
-						country_choice,country_list = general_list(dict1,"country","update")
-						state_choice, state_list = general_list(dict1[country_choice],"state","update")
-						if state_choice in state_list:
-							dict1[country_choice].pop(state_choice)
+						country_choice,country_list = general_list(main_data, "country", "update")
+						state_choice, state_list = general_list(main_data[country_choice], "state", "update")
+						if state_list == []:
+							print("Not any state in list")
+						elif state_choice in state_list:
+							main_data[country_choice].pop(state_choice)
 							update_state_name = input("Please Enter state new name: ")
 							update_state_name  = update_state_name.lower()
-							dict1[country_choice][update_state_name] = []
+							main_data[country_choice][update_state_name] = []
 						else:
 							print("You are selected state is not in list")
 							update_state()
@@ -140,18 +145,18 @@ def options(dict1 = {}):
 			elif permission_update == "city":	
 				def update_city():
 					try:
-						country_choice,country_list = general_list(dict1,"country","update")
-						state_choice, state_list = general_list(dict1[country_choice],"state","update")
-						city_list = dict1[country_choice][state_choice]
+						country_choice,country_list = general_list(main_data, "country", "update")
+						state_choice, state_list = general_list(main_data[country_choice], "state", "update")
+						city_list = main_data[country_choice][state_choice]
 						print(list(city_list))
 						city_choice = input("Which city you want to Update please Enter: ")
 						city_choice = city_choice.lower()
 						if city_choice in city_list:
 							update_city_name = input("Please Enter new city: ")
 							update_city_name  = update_city_name.lower()
-							if check_duplicate(dict1[country_choice][state_choice],update_city_name):
-								dict1[country_choice][state_choice].remove(city_choice)
-								dict1[country_choice][state_choice].append(update_city_name)
+							if check_duplicate(main_data[country_choice][state_choice], update_city_name):
+								main_data[country_choice][state_choice].remove(city_choice)
+								main_data[country_choice][state_choice].append(update_city_name)
 							else:
 								print("The city is already in data.")
 								update_city()
@@ -169,7 +174,7 @@ def options(dict1 = {}):
 				update()	
 		
 		update()
-		options(dict1)
+		options(main_data)
 		
 	elif input_choice == 3:
 		
@@ -179,9 +184,9 @@ def options(dict1 = {}):
 			
 			if permission_delete == "country":
 				def delete_country():
-					country_choice,country_list = general_list(dict1,"country","delete")
+					country_choice,country_list = general_list(main_data, "country", "delete")
 					if country_choice in country_list:
-						del dict1[country_choice]
+						del main_data[country_choice]
 					else:
 						print("You are selected country is not in list")
 						delete_country()
@@ -191,10 +196,10 @@ def options(dict1 = {}):
 			elif permission_delete == "state":
 				def delete_state():
 					try:
-						country_choice, country_list = general_list(dict1,"country","delete")
-						state_choice,state_list = general_list(dict1[country_choice],"state","delete")
+						country_choice, country_list = general_list(main_data, "country", "delete")
+						state_choice,state_list = general_list(main_data[country_choice], "state", "delete")
 						if state_choice in state_list:
-							del dict1[country_choice][state_choice]
+							del main_data[country_choice][state_choice]
 						else:
 							print("You are selected state is not in list")
 							delete_state()
@@ -209,10 +214,9 @@ def options(dict1 = {}):
 			elif permission_delete == "city":
 				def delete_city():
 					try:
-	
-						country_choice, country_list = general_list(dict1,"country","delete")
-						state_choice, state_list = general_list(dict1[country_choice],"state","delete")
-						city_list = dict1[country_choice][state_choice]
+						country_choice, country_list = general_list(main_data, "country", "delete")
+						state_choice, state_list = general_list(main_data[country_choice], "state", "delete")
+						city_list = main_data[country_choice][state_choice]
 						print(list(city_list))
 						city_choice = input("Which city you want to Delete please Enter: ")
 						city_choice = city_choice.lower()
@@ -232,11 +236,11 @@ def options(dict1 = {}):
 				print("You are not selected valid permission")	
 				delete()
 		delete()
-		options(dict1)
+		options(main_data)
 			
 	elif input_choice == 4:
-		print(dict1)
-		options(dict1)
+		print(main_data)
+		options(main_data)
 	
 	elif input_choice == 5:
 		return
@@ -245,10 +249,7 @@ def options(dict1 = {}):
 	
 		print("Not Selected Valid Option")
 		options()
-	
-	
-	
-	
+
 ##main	
 import time
 start_time = time.time()	
